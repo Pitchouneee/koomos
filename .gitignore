@@ -1,0 +1,16 @@
+# Go build artifacts
+*.exe
+*.out
+*.test
+
+# Koomos specific output
+diag.md
+
+.DS_Store
+Thumbs.db
+
+# Go module cache (not strictly necessary, but safe)
+vendor/
+
+# Logs
+*.log

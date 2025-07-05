@@ -31,19 +31,45 @@ func GenerateMermaid(resources []model.Resource, edges []resolver.Edge) string {
 	diagram := "```mermaid\ngraph TD\n"
 	seen := make(map[string]bool)
 
+	// for _, res := range resources {
+	// 	if res.Name == "" || res.Kind == "" {
+	// 		continue // skip invalid
+	// 	}
+
+	// 	id := sanitizeID(res)
+	// 	label := fmt.Sprintf("%s<br>(%s)", res.Name, res.Kind)
+	// 	node := fmt.Sprintf("  %s[\"%s\"]\n", id, label)
+
+	// 	if !seen[id] {
+	// 		diagram += node
+	// 		seen[id] = true
+	// 	}
+	// }
+
+	namespaced := make(map[string][]model.Resource)
 	for _, res := range resources {
-		if res.Name == "" || res.Kind == "" {
-			continue // skip invalid
+		if res.Name != "" && res.Kind != "" {
+			ns := res.Namespace
+			if ns == "" {
+				ns = "default"
+			}
+			namespaced[ns] = append(namespaced[ns], res)
 		}
+	}
 
-		id := sanitizeID(res)
-		label := fmt.Sprintf("%s<br>(%s)", res.Name, res.Kind)
-		node := fmt.Sprintf("  %s[\"%s\"]\n", id, label)
-
-		if !seen[id] {
-			diagram += node
-			seen[id] = true
+	// subgraphs
+	for ns, group := range namespaced {
+		diagram += fmt.Sprintf("  subgraph \"%s namespace\"\n", ns)
+		for _, res := range group {
+			id := sanitizeID(res)
+			label := fmt.Sprintf("%s<br>(%s)", res.Name, res.Kind)
+			node := fmt.Sprintf("    %s[\"%s\"]\n", id, label)
+			if !seen[id] {
+				diagram += node
+				seen[id] = true
+			}
 		}
+		diagram += "  end\n\n"
 	}
 
 	for _, edge := range edges {
