@@ -2,7 +2,7 @@ project_name: koomos
 
 builds:
   - id: koomos
-    main: ./cmd/main.go
+    main: ./cmd/root.go
     binary: koomos
     goos:
       - linux
