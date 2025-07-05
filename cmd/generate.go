@@ -22,16 +22,16 @@ var generateCmd = &cobra.Command{
 	Short: "Generate a diagram from Kubernetes/ArgoCD YAML files",
 	Long:  `Scans a directory recursively to parse Kubernetes, ArgoCD, Kustomize or Helm manifests and generates a Mermaid diagram.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("📂 Scanning YAML files from:", input)
+		fmt.Println("Scanning YAML files from:", input)
 
 		resources, err := parser.ParseDirectory(input)
 		if err != nil {
-			fmt.Println("❌ Error parsing YAML files:", err)
+			fmt.Println("Error parsing YAML files:", err)
 			os.Exit(1)
 		}
 
 		if len(resources) == 0 {
-			fmt.Println("⚠️ No YAML resources found.")
+			fmt.Println("No YAML resources found.")
 			os.Exit(0)
 		}
 
@@ -40,11 +40,11 @@ var generateCmd = &cobra.Command{
 
 		err = os.WriteFile(output, []byte(diagramText), 0644)
 		if err != nil {
-			fmt.Println("❌ Failed to write output file:", err)
+			fmt.Println("Failed to write output file:", err)
 			os.Exit(1)
 		}
 
-		fmt.Printf("✅ Mermaid diagram generated with %d resources: %s\n", len(resources), output)
+		fmt.Printf("Mermaid diagram generated with %d resources: %s\n", len(resources), output)
 	},
 }
 
