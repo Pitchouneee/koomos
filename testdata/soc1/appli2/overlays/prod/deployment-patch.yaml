@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-appli2
+  namespace: microservices
+spec:
+  template:
+    spec:
+      containers:
+      - name: app-appli2
+        imagePullPolicy: IfNotPresent
+        args:
+        - '--spring.devtools.add-properties=true'
+        - '--spring.datasource.test-while-idle=false'
+        - '--spring.jpa.show-sql=true'
+        env:
+        - name: ELASTIC_APM_ENVIRONMENT
+          value: prod

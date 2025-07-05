@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: appli2-staging
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: registry.fr/soc1-appli2
+    argocd-image-updater.argoproj.io/registry.fr/soc1-appli2.update-strategy: latest
+    argocd-image-updater.argoproj.io/registry.fr/soc1-appli2.allow-tags: regexp:^latest$
+spec:
+  project: default
+  source:
+    repoURL: https://gitlab.com/soc1/appli2.git
+    targetRevision: HEAD
+    path: overlays/staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: microservices
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

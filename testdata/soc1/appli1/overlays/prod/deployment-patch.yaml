@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-appli1
+  namespace: appli1
+spec:
+  template:
+    spec:
+      containers:
+      - name: app-appli1
+        imagePullPolicy: IfNotPresent

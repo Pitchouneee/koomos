@@ -1,0 +1,9 @@
+resources:
+- ../../base
+
+patchesStrategicMerge:
+- deployment-patch.yaml
+
+images:
+- name: registry.fr/soc1-appli2
+  newTag: 1.0.1

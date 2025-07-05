@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Pitchouneee/test-argocd.git
+    targetRevision: HEAD
+    path: core/argocd
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd

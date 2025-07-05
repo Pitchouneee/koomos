@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-appli2
+  namespace: microservices
+spec:
+  template:
+    spec:
+      containers:
+      - name: app-appli2
+        imagePullPolicy: Always
+        args:
+        - '--spring.devtools.add-properties=false'
+        - '--spring.datasource.test-while-idle=true'
+        - '--spring.jpa.show-sql=false'
+        env:
+        - name: ELASTIC_APM_ENVIRONMENT
+          value: staging

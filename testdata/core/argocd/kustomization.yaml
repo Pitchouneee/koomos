@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+resources:
+- https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.6/manifests/install.yaml
+- https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
+- ns.yaml
+secretGenerator:
+- name: my-repo
+  literals:
+  - type=git
+  - url=https://github.com/Pitchouneee/test-argocd
+  - project=my-project
+  options:
+    labels:
+      argocd.argoproj.io/secret-type: repository

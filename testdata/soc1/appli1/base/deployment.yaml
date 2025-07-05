@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-appli1
+  namespace: appli1
+spec:
+  selector:
+    matchLabels:
+      app: app-appli1
+  template:
+    metadata:
+      labels:
+        app: app-appli1
+    spec:
+      containers:
+      - name: app-appli1
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: 80
+            scheme: HTTP
+      imagePullSecrets:
+      - name: registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appli1-svc
+  namespace: appli1
+spec:
+  type: ClusterIP
+  selector:
+    app: app-appli1
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 80

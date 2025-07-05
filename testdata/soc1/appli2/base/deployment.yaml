@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-appli2
+  namespace: microservices
+spec:
+  selector:
+    matchLabels:
+      app: app-appli2
+  template:
+    metadata:
+      labels:
+        app: app-appli2
+    spec:
+      containers:
+      - name: app-appli2
+        ports:
+        - containerPort: 8810
+        env:
+        - name: ELASTIC_APM_SERVICE_NAME
+          value: appli2
+        - name: ELASTIC_APM_SERVER_URL
+          value: <my-elastic-url>
+        - name: ELASTIC_APM_SECRET_TOKEN
+          value: <my-elastic-pwd>
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8810
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8810
+      imagePullSecrets:
+      - name: registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appli2-svc
+  namespace: microservices
+spec:
+  type: ClusterIP
+  selector:
+    app: app-appli2
+  ports:
+  - protocol: TCP
+    port: 8810
+    targetPort: 8810
