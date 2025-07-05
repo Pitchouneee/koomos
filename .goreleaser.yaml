@@ -4,6 +4,8 @@ builds:
   - id: koomos
     main: ./main.go
     binary: koomos
+    ldflags:
+      - -X github.com/Pitchouneee/koomos/cmd.version={{.Version}}
     goos:
       - linux
       - windows

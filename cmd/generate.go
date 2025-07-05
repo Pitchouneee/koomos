@@ -60,6 +60,6 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// generateCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	generateCmd.Flags().StringVarP(&input, "input", "i", ".", "Dossier contenant les fichiers YAML")
-	generateCmd.Flags().StringVarP(&output, "output", "o", "diagram.md", "Fichier de sortie (Markdown avec Mermaid)")
+	generateCmd.Flags().StringVarP(&input, "input", "i", ".", "Input directory containing YAML files")
+	generateCmd.Flags().StringVarP(&output, "output", "o", "diag.md", "Output file path")
 }
