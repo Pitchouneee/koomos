@@ -1,18 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
-  namespace: default
+  name: my-app
+  namespace: demo
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: nginx
   template:
     metadata:
       labels:
-        app: nginx
+        app: my-app
     spec:
       containers:
-      - name: nginx
+      - name: my-app
         image: nginx
+        env:
+        - name: FROM_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: my-secret
+              key: password
+        - name: FROM_CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: my-config
+              key: key
+      volumes:
+      - name: config-vol
+        configMap:
+          name: my-config
+      - name: secret-vol
+        secret:
+          secretName: my-secret

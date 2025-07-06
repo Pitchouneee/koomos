@@ -1,6 +1,9 @@
 # 🧩 Koomos
 
+Visualize your Kubernetes YAML like never before — in a single CLI command.
+
 [![install koomos](https://img.shields.io/badge/install-koomos-blue?logo=curl)](https://raw.githubusercontent.com/Pitchouneee/koomos/main/install.sh)
+[![GitHub release](https://img.shields.io/github/v/release/Pitchouneee/koomos)](https://github.com/Pitchouneee/koomos/releases)
 
 **Koomos** is a simple CLI tool that analyzes Kubernetes YAML files (Kustomize, ArgoCD, Helm, etc.) and generates visual architecture diagrams using [Mermaid](https://mermaid.js.org/).
 
@@ -15,11 +18,13 @@
 * Groups resources by namespace with logical links (e.g. `Service` ➝ `Deployment`)
 * Easy to use CLI: `koomos generate --input ./ --output diag.md`
 
+Have ideas? [Open an issue](https://github.com/Pitchouneee/koomos/issues/new?template=feature_request.md) or [start a discussion](https://github.com/Pitchouneee/koomos/discussions).
+
 ---
 
 ## 🚀 Installation
 
-### ▶️ With `go install` (requires Go ≥ 1.22)
+### ▶️ With `go install` (requires Go ≥ 1.24)
 
 ```bash
 go install github.com/Pitchouneee/koomos@latest
