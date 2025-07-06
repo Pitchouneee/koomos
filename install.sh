@@ -14,6 +14,11 @@ elif [[ "$ARCH" == "aarch64" || "$ARCH" == "arm64" ]]; then
   ARCH="arm64"
 fi
 
+# If latest, fetch real version tag
+if [[ "$VERSION" == "latest" ]]; then
+  VERSION=$(curl -s "https://api.github.com/repos/${REPO}/releases/latest" | grep '"tag_name":' | cut -d'"' -f4)
+fi
+
 # Remove "v" prefix for archive naming
 VERSION_NO_PREFIX="${VERSION#v}"
 
