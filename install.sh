@@ -14,11 +14,17 @@ elif [[ "$ARCH" == "aarch64" || "$ARCH" == "arm64" ]]; then
   ARCH="arm64"
 fi
 
-TAR_NAME="koomos_${VERSION}_${OS}_${ARCH}.tar.gz"
+# Remove "v" prefix for archive naming
+VERSION_NO_PREFIX="${VERSION#v}"
+
+TAR_NAME="koomos_${VERSION_NO_PREFIX}_${OS}_${ARCH}.tar.gz"
 URL="https://github.com/${REPO}/releases/download/${VERSION}/${TAR_NAME}"
 
 echo "Downloading: $URL"
-curl -sL "$URL" | tar -xz
+if ! curl -sL "$URL" | tar -xz; then
+  echo "Failed to download or extract archive. URL may be invalid."
+  exit 1
+fi
 
 chmod +x koomos
 sudo mv koomos /usr/local/bin/
