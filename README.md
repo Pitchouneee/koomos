@@ -54,7 +54,7 @@ Then view the `diag.md` file rendered with Mermaid in VS Code, GitLab, GitHub, e
 ```mermaid
 graph TD
   nginx_svc_service --> nginx_deployment
-  subgraph default
+  subgraph "default"
     nginx_deployment["nginx<br>(Deployment)"]
     nginx_svc_service["nginx-svc<br>(Service)"]
 end
